@@ -32,7 +32,8 @@ const headersToDelete = [
 ];
 
 const headersToDelete2 = headersToDelete.slice(4);
-
+const ORIGIN_BACKEND_NAME = "origin";
+  
 function parseProxyConfig(request) {
   const encodedProxyChain = request.headers.get(CONFIG.ProxyChain);
   const loopCount = parseInt(request.headers.get(CONFIG.LoopCount) ?? '0');
@@ -98,8 +99,11 @@ async function handleRequest(event) {
       return new Response("", { status: 444 });
     }
 
-    const proxyConfig = parseProxyConfig(request);
-    return await proxyRequest(proxyConfig);
+    return fetch(request, {
+      backend: ORIGIN_BACKEND_NAME
+    })
+    // const proxyConfig = parseProxyConfig(request);
+    // return await proxyRequest(proxyConfig);
   } catch (error) {
     return new Response(error.message || 'Internal Server Error', {
       status: error.statusCode || 500

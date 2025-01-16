@@ -5,15 +5,19 @@ authors = ["<oss@fastly.com>"]
 description = "A basic starter kit that demonstrates routing, simple synthetic responses and overriding caching rules."
 language = "javascript"
 manifest_version = 3
-name = "Default starter for JavaScript"
+name = "looproxy"
 
 
 [scripts]
   build = "npm run build"
-  
+  post_init = "npm install"
+
 
 [setup]
+
   [setup.backends]
-    [setup.backends.openweather]  # 使用简单的名称
-      address = "api.openweathermap.org"
+
+    [setup.backends.origin]
+      address = "httpbin.org"
+      description = "A basic real-time chat app, with API-key authentication, running on Glitch."
       port = 443

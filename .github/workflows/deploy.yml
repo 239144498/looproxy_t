@@ -1,0 +1,25 @@
+name: Deploy Application
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' # 或其他需要的 Node.js 版本
+
+    - name: Install dependencies
+      run: npm install # 或 yarn install
+
+    - name: Deploy to Compute@Edge
+      uses: fastly/compute-actions@v5
+      env:
+        FASTLY_API_TOKEN: ${{ secrets.FASTLY_API_KEY }}
+      with:
+        service_id: '5xYzlbiMe65bMpXc8JKQPg'

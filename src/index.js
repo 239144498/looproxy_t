@@ -1,6 +1,10 @@
 /// <reference types="@fastly/js-compute" />
 import { env } from "fastly:env";
+import { allowDynamicBackends } from "fastly:experimental";
+import { Backend } from "fastly:backend";
 
+// 启用动态后端支持
+allowDynamicBackends(true);
 
 const CONFIG = {
   MAX_PROXY_DEPTH: env('MAX_PROXY_DEPTH') || 5,
@@ -71,10 +75,26 @@ function parseProxyConfig(request) {
 
 async function proxyRequest(config) {
   try {
+    const targetUrl = new URL(config.targetUrl);
+    
+    // 为每个目标创建动态后端
+    const backend = new Backend({
+      name: targetUrl.hostname,
+      target: targetUrl.hostname,
+      hostOverride: targetUrl.hostname,
+      connectTimeout: 1000,
+      firstByteTimeout: 15000,
+      betweenBytesTimeout: 10000,
+      useSSL: targetUrl.protocol === 'https:',
+      sslMinVersion: 1.3,
+      sslMaxVersion: 1.3,
+    });
+
     const finalResponse = await fetch(config.targetUrl, {
       method: config.method,
       headers: config.headers,
-      body: config.body
+      body: config.body,
+      backend // 使用配置的后端
     });
 
     return new Response(finalResponse.body, {

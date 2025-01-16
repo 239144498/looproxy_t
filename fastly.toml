@@ -13,6 +13,14 @@ name = "looproxy"
   post_init = "npm install"
 
 
+[local_server]
+
+  [local_server.backends]
+
+    [local_server.backends.origin]
+      url = "https://httpbin.org"
+      
+
 [setup]
 
   [setup.backends]

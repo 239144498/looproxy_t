@@ -3,7 +3,7 @@
     "node": "^18.0.0"
   },
   "dependencies": {
-    "@fastly/js-compute": "^3.0.0"
+    "@fastly/js-compute": "^3.2.0"
   },
   "devDependencies": {
     "@fastly/cli": "^10.14.0",

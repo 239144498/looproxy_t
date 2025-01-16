@@ -1,10 +1,6 @@
 /// <reference types="@fastly/js-compute" />
 import { env } from "fastly:env";
-// import { allowDynamicBackends } from "fastly:experimental";
 import { Backend } from "fastly:backend";
-
-// 启用动态后端支持
-// allowDynamicBackends(true);
 
 const CONFIG = {
   MAX_PROXY_DEPTH: env('MAX_PROXY_DEPTH') || 5,
@@ -112,5 +108,4 @@ async function handleRequest(event) {
   }
 }
 
-// Register the fetch event listener
 addEventListener("fetch", event => event.respondWith(handleRequest(event)));

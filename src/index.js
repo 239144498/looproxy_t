@@ -3,7 +3,6 @@ import { env } from "fastly:env";
 // import { allowDynamicBackends } from "fastly:experimental";
 import { Backend } from "fastly:backend";
 
-
 // 启用动态后端支持
 // allowDynamicBackends(true);
 

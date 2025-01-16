@@ -79,11 +79,11 @@ async function proxyRequest(config) {
     
     const backendName = targetUrl.hostname;
 
-    const finalResponse = await fetch(config.targetUrl, {
+    const finalResponse = await fetch(targetUrl, {
       method: config.method,
       headers: config.headers,
       body: config.body,
-      backend: backendName
+      backend: 'openweather'  // backendName
     });
 
     return new Response(finalResponse.body, {

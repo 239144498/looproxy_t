@@ -77,24 +77,11 @@ async function proxyRequest(config) {
   try {
     const targetUrl = new URL(config.targetUrl);
     
-    // 为每个目标创建动态后端
-    const backend = new Backend({
-      name: targetUrl.hostname,
-      target: targetUrl.hostname,
-      hostOverride: targetUrl.hostname,
-      connectTimeout: 1000,
-      firstByteTimeout: 15000,
-      betweenBytesTimeout: 10000,
-      useSSL: targetUrl.protocol === 'https:',
-      sslMinVersion: 1.3,
-      sslMaxVersion: 1.3,
-    });
-
     const finalResponse = await fetch(config.targetUrl, {
       method: config.method,
       headers: config.headers,
       body: config.body,
-      backend // 使用配置的后端
+      backend: 'origin'
     });
 
     return new Response(finalResponse.body, {

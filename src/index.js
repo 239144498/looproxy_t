@@ -77,11 +77,18 @@ async function proxyRequest(config) {
   try {
     const targetUrl = new URL(config.targetUrl);
     
+    // 创建后端配置
+    const backendName = "default_backend";
+    await Backend.update(backendName, {
+      target: targetUrl.hostname,
+      hostOverride: targetUrl.hostname
+    });
+
     const finalResponse = await fetch(config.targetUrl, {
       method: config.method,
       headers: config.headers,
       body: config.body,
-      backend: 'origin'
+      backend: backendName  // 使用配置的后端名称
     });
 
     return new Response(finalResponse.body, {

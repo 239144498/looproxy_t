@@ -8,16 +8,12 @@ manifest_version = 3
 name = "Default starter for JavaScript"
 
 
+[scripts]
+  build = "npm run build"
+  
+
 [setup]
   [setup.backends]
-    [setup.backends."api.openweathermap.org"]
-      address = "api.openweathermap.org"
-      port = 443
-
-    [setup.backends."api.github.com"]
-      address = "api.github.com"
-      port = 443
-
     [setup.backends.openweather]  # 使用简单的名称
       address = "api.openweathermap.org"
       port = 443

@@ -11,9 +11,24 @@ name = "Default starter for JavaScript"
 build = "npm run build"
 post_init = "npm install"
 
-
 [local_server]
+
 [setup]
 [setup.backends]
-[setup.backends.default_backend]
+[setup.backends.openweather_backend]
 address = "api.openweathermap.org"
+port = 443
+use_ssl = true
+ssl_check_cert = true
+connect_timeout = 1000
+first_byte_timeout = 15000
+between_bytes_timeout = 10000
+
+[setup.backends.github_backend]
+address = "api.github.com"
+port = 443
+use_ssl = true
+ssl_check_cert = true
+connect_timeout = 1000
+first_byte_timeout = 15000
+between_bytes_timeout = 10000

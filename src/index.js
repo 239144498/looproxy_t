@@ -1,16 +1,11 @@
 /// <reference types="@fastly/js-compute" />
 import { env } from "fastly:env";
-import { allowDynamicBackends } from "fastly:experimental";
+// import { allowDynamicBackends } from "fastly:experimental";
 import { Backend } from "fastly:backend";
 
 
 // 启用动态后端支持
-allowDynamicBackends(true);
-// 添加后端映射配置
-const BACKEND_MAPPING = {
-  'api.openweathermap.org': 'openweather_backend',
-  'api.github.com': 'github_backend',
-};
+// allowDynamicBackends(true);
 
 const CONFIG = {
   MAX_PROXY_DEPTH: env('MAX_PROXY_DEPTH') || 5,
@@ -82,11 +77,8 @@ function parseProxyConfig(request) {
 async function proxyRequest(config) {
   try {
     const targetUrl = new URL(config.targetUrl);
-    const backendName = BACKEND_MAPPING[targetUrl.hostname];
     
-    if (!backendName) {
-      throw new Error(`No backend configured for host: ${targetUrl.hostname}`);
-    }
+    const backendName = targetUrl.hostname;
 
     const finalResponse = await fetch(config.targetUrl, {
       method: config.method,
@@ -101,7 +93,7 @@ async function proxyRequest(config) {
     });
   } catch (error) {
     return new Response(
-      error.message || 'Proxy request failed',
+      `Proxy request failed: ${error.message}`, 
       { status: 502 }
     );
   }

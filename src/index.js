@@ -79,17 +79,14 @@ async function proxyRequest(config) {
     
     const backendName = targetUrl.hostname;
 
-    const finalResponse = await fetch(targetUrl, {
+    const backendResponse = await fetch(targetUrl, {
       method: config.method,
       headers: config.headers,
       body: config.body,
       backend: 'openweather'  // backendName
     });
 
-    return new Response(finalResponse.body, {
-      status: finalResponse.status,
-      headers: finalResponse.headers
-    });
+    return backendResponse;
   } catch (error) {
     return new Response(
       `Proxy request failed: ${error.message}`, 

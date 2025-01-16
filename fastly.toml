@@ -11,10 +11,6 @@ name = "Default starter for JavaScript"
 build = "npm run build"
 post_init = "npm install"
 
-manifest_version = 3
-name = "your-service-name"
-description = "Your service description"
-language = "javascript"
 
 [setup]
   [setup.backends]

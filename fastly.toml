@@ -11,24 +11,30 @@ name = "Default starter for JavaScript"
 build = "npm run build"
 post_init = "npm install"
 
-[local_server]
+manifest_version = 3
+name = "your-service-name"
+description = "Your service description"
+language = "javascript"
 
 [setup]
-[setup.backends]
-[setup.backends.openweather_backend]
-address = "api.openweathermap.org"
-port = 443
-use_ssl = true
-ssl_check_cert = true
-connect_timeout = 1000
-first_byte_timeout = 15000
-between_bytes_timeout = 10000
+  [setup.backends]
+    [setup.backends."api.openweathermap.org"]
+      address = "api.openweathermap.org"
+      description = "OpenWeatherMap API Server"
+      port = 443
+      use_ssl = true
+      ssl_check_cert = true
+      connect_timeout = 1000
+      first_byte_timeout = 15000
+      between_bytes_timeout = 10000
 
-[setup.backends.github_backend]
-address = "api.github.com"
-port = 443
-use_ssl = true
-ssl_check_cert = true
-connect_timeout = 1000
-first_byte_timeout = 15000
-between_bytes_timeout = 10000
+    # 可以添加更多后端
+    [setup.backends."api.github.com"]
+      address = "api.github.com"
+      description = "GitHub API Server"
+      port = 443
+      use_ssl = true
+      ssl_check_cert = true
+      connect_timeout = 1000
+      first_byte_timeout = 15000
+      between_bytes_timeout = 10000

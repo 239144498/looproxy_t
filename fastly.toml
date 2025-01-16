@@ -11,11 +11,21 @@ name = "Default starter for JavaScript"
 build = "npm run build"
 post_init = "npm install"
 
-[setup.backends."api.openweathermap.org"]
-description = "OpenWeatherMap API Server"
-address = "api.openweathermap.org"
-port = 443
 
-[setup.config_stores."weather_auth".items.key]
-description = "API token for openweathermap.org"
-input_type = "string" 
+[setup]
+
+  [setup.backends]
+
+    [setup.backends."api.openweathermap.org"]
+      address = "api.openweathermap.org"
+      description = "OpenWeatherMap API Server"
+      port = 443
+
+  [setup.config_stores]
+
+    [setup.config_stores.weather_auth]
+
+      [setup.config_stores.weather_auth.items]
+
+        [setup.config_stores.weather_auth.items.key]
+          description = "API token for openweathermap.org"

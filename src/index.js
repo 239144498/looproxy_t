@@ -1,6 +1,5 @@
 /// <reference types="@fastly/js-compute" />
 import { env } from "fastly:env";
-import { Backend } from "fastly:backend";
 
 const CONFIG = {
   MAX_PROXY_DEPTH: env('MAX_PROXY_DEPTH') || 5,

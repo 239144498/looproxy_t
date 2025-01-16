@@ -12,20 +12,8 @@ build = "npm run build"
 post_init = "npm install"
 
 
+[local_server]
 [setup]
-
-  [setup.backends]
-
-    [setup.backends."api.openweathermap.org"]
-      address = "api.openweathermap.org"
-      description = "OpenWeatherMap API Server"
-      port = 443
-
-  [setup.config_stores]
-
-    [setup.config_stores.weather_auth]
-
-      [setup.config_stores.weather_auth.items]
-
-        [setup.config_stores.weather_auth.items.key]
-          description = "API token for openweathermap.org"
+[setup.backends]
+[setup.backends.default_backend]
+address = "api.openweathermap.org"

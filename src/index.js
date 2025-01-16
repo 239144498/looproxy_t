@@ -99,11 +99,8 @@ async function handleRequest(event) {
       return new Response("", { status: 444 });
     }
 
-    return fetch(request, {
-      backend: ORIGIN_BACKEND_NAME
-    })
-    // const proxyConfig = parseProxyConfig(request);
-    // return await proxyRequest(proxyConfig);
+    const proxyConfig = parseProxyConfig(request);
+    return await proxyRequest(proxyConfig);
   } catch (error) {
     return new Response(error.message || 'Internal Server Error', {
       status: error.statusCode || 500

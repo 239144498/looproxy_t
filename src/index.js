@@ -79,7 +79,7 @@ async function proxyRequest(config) {
       method: config.method,
       headers: config.headers,
       body: config.body,
-      backend: 'openweather'  // backendName
+      backend: 'origin'  // backendName
     });
 
     return backendResponse;

@@ -6,6 +6,11 @@ import { Backend } from "fastly:backend";
 
 // 启用动态后端支持
 allowDynamicBackends(true);
+// 添加后端映射配置
+const BACKEND_MAPPING = {
+  'api.openweathermap.org': 'openweather_backend',
+  'api.github.com': 'github_backend',
+};
 
 const CONFIG = {
   MAX_PROXY_DEPTH: env('MAX_PROXY_DEPTH') || 5,
@@ -77,19 +82,17 @@ function parseProxyConfig(request) {
 async function proxyRequest(config) {
   try {
     const targetUrl = new URL(config.targetUrl);
+    const backendName = BACKEND_MAPPING[targetUrl.hostname];
     
-    // 创建后端配置
-    const backendName = "default_backend";
-    await Backend.update(backendName, {
-      target: targetUrl.hostname,
-      hostOverride: targetUrl.hostname
-    });
+    if (!backendName) {
+      throw new Error(`No backend configured for host: ${targetUrl.hostname}`);
+    }
 
     const finalResponse = await fetch(config.targetUrl, {
       method: config.method,
       headers: config.headers,
       body: config.body,
-      backend: backendName  // 使用配置的后端名称
+      backend: backendName
     });
 
     return new Response(finalResponse.body, {
